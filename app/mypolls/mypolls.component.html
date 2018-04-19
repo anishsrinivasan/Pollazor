@@ -1,0 +1,19 @@
+<div class="container-fluid mypollscontainer">
+<div class="row">
+  <div class="col-md-12">
+      <strong><h1 class="text-center">My Polls</h1></strong>
+      <br>
+      <ol>
+      <div  *ngFor="let post of posts | async">
+      <a  routerLink="/viewpoll/{{post.id}}" routerLinkActive="active">
+        <img class="postimage" [src]="post.data.postimage">
+        <li class="viewpolllink">{{post.data.title}}</li></a>
+        <p> {{post.data.content}}</p>
+        <br>
+ </div>
+</ol>
+</div>
+</div>
+</div>
+ 
+    

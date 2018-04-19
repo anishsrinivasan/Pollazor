@@ -1,0 +1,27 @@
+.displayimage{
+    padding: 2%;
+}
+.forminput {
+        margin-left: 2rem;
+        display: inline-block;
+        margin-right: 1rem;
+        margin-top: 1rem;
+}
+
+.forminputlabel{
+    padding: 0;
+    font-weight: 400;
+}
+
+.loginbox {
+    padding: 8%;
+}
+
+.profilebox {
+    padding: 8%;
+}
+
+.sociallogincontainer{
+    padding-left:5%;
+    padding-right:5%;
+}

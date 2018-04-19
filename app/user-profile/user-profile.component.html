@@ -1,0 +1,175 @@
+<div *ngIf="auth.user | async; then authenticated else guest">
+    <!-- template will replace this div -->
+</div>
+<!-- Sign In  -->
+<ng-template #guest>
+<div class="container-fluid">
+ <div class="row loginbox">
+        <div *ngIf="signtoggleval == true" class="col-md-12 d-flex flex-column">
+            <!-- Form login -->
+            <p class="h5 text-center mb-4">Sign in to get Started.</p>
+<div class="d-flex justify-content-center">
+<form  class="col-md-6 ">
+        
+
+        <div class="md-form">
+            <p class="forminputlabel">Email</p>
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <input type="text" [(ngModel)]="email" name="email" >
+            
+        </div>
+    
+        <div class="md-form">
+            <p class="forminputlabel">Password</p>
+            <i class="fa fa-lock prefix grey-text"></i>
+            <input type="password" [(ngModel)]="password" name="password" >
+          
+        </div>
+        <div class="text-center">
+            <button class="btn btn-elegant" id="loginbtn" (click)="signin()">Login</button>
+        </div>
+    </form></div>
+    <div class="text-center ">
+        <br>
+    <p class="text-center h5">or Sign in with</p>
+    <br>
+    <div class="d-flex justify-content-center sociallogincontainer">
+    <button class="btn btn-primary" (click)="auth.facebookLogin()">
+            <i class="fa fa-facebook"></i>  Facebook
+        </button> 
+        <button class="btn btn-danger" (click)="auth.googleLogin()">
+                <i class="fa fa-google"></i>  Google
+            </button> 
+                
+            </div>
+            <hr>
+            <p>New to Pollozor?</p>
+            <button class="btn btn-elegant" (click)="signtoggle()">Click to Sign Up</button></div>
+        
+        </div>
+        <div *ngIf="signtoggleval == false" class="col-md-12 d-flex flex-column">
+       <!-- Sign Up -->
+        <p class="h5 text-center mb-4">Sign up to get Started.</p>
+<div class="d-flex justify-content-center">
+<form  class="col-md-6 ">
+    
+
+    <div class="md-form">
+        <p class="forminputlabel">Email</p>
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="text" [(ngModel)]="email" name="email" >
+        
+    </div>
+
+    <div class="md-form">
+        <p class="forminputlabel">Password</p>
+        <i class="fa fa-lock prefix grey-text"></i>
+        <input type="password" [(ngModel)]="password" name="password" >
+      
+    </div>
+    <div class="text-center">
+        <button class="btn btn-elegant" (click)="signup()">Sign Up</button>
+    </div>
+</form></div>
+<div class="text-center ">
+    <br>
+        <hr>
+        <p>Already a Member?</p>
+        <button class="btn btn-elegant" (click)="signtoggle()">Click to Sign Up</button></div>
+    
+    </div>
+    </div>
+</div>
+</ng-template>
+<!-- Authenticared -->
+<ng-template #authenticated>
+    <div  *ngIf="auth.user | async as user">
+        <div class="container-fluid" >
+            <div class="profilebox" div *ngIf="user.displayName">
+    <div class="row d-flex flex-row">
+        <!--Card Regular-->
+        <div class="col-md-4 text-center ">
+<div class="card card-cascade" >
+        
+            <!--Card image-->
+            <div class="view overlay hm-white-slight">
+                <a routerLink="/{{user.uid}}"><img [src]="user.photoURL" class="img-fluid displayimage" alt=""></a>
+                <a>
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <!--/.Card image-->
+        
+            <!--Card content-->
+            <div class="card-body text-center">
+                <!--Title-->
+                <a routerLink="/{{user.uid}}"><h4 class="card-title"><strong>{{ user.displayName }}</strong></h4></a>
+                <p>{{user.about}}</p>
+                <h5> {{ user.uid }} </h5>
+                <button class="btn btn-elegant"  (click)="auth.signOut()">Logout</button>
+            </div>
+            <!--/.Card content-->
+        </div>
+        </div>
+        <div class="col-md-8 text-center">
+            <br>
+            <h3>Hello, {{ user.displayName }}</h3>
+            <br>
+            <a routerLink="/createpoll"><button class="btn btn-elegant">Create a New Poll</button></a>
+            <a routerLink="/{{user.uid}}"><button class="btn btn-elegant">View Profile</button></a>
+        </div>
+    </div>
+        <!--/.Card Regular-->
+        </div>
+    </div>
+
+    <!-- If there is no Display name -->
+    <div *ngIf="user.displayName == null">
+        <div class="container-fluid">
+            <div class="row profilebox d-flex justify-content-center">
+            <div class="col-md-6">
+                    <p class="h5 text-center mb-4">One More Step, Before you Proceed</p>
+                    <br>
+                    <div class="md-form">
+                            <p class="forminputlabel">Name</p>
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <input type="text" [(ngModel)]="displayName" name="displayName" >
+                            
+                        </div>
+                        <div class="md-form">
+                                <p class="forminputlabel">Date of Birth</p>
+                                <i class="fa fa-calendar-check-o  prefix grey-text"></i>
+                                <input type="date" [(ngModel)]="dateofbirth" name="dateofbirth" >
+                                
+                            </div>
+                            
+
+                            <div class="md-form">
+                                    <p class="forminputlabel">Gender</p>
+                                    <i class="fa fa-genderless prefix grey-text" ></i>
+                                    <div style="margin-left: 3rem;width: 92%; width: calc(100% - 3rem);">
+                                    <div class="form-check form-check-inline forminput">
+                                            
+                                              <input class="form-check-input" type="radio" [(ngModel)]="gender" name="gender" value="Male">Male
+                                  
+                                          </div>
+                                          <div class="form-check form-check-inline forminput">
+                                       
+                                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">Female
+                                        
+                                          </div>
+                                          
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Profile Image</label>
+                                        <input type="file" class="form-control-file" id="file" #file (change)="fileChange(file.files)">
+                                      </div>
+                                      <button type="button" (click)="uploadFile()" id="uploadbtn" class="btn btn-elegant">Upload Image</button>
+                                <div class="text-center">
+                                        <button class="btn btn-elegant" id="updatebtn" (click)="updateUserInfo()">Click to Proceed</button>
+                                    </div>
+            </div>
+        </div></div>
+    </div></div>
+        </ng-template>

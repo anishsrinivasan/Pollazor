@@ -1,0 +1,12 @@
+.mypollscontainer {
+    padding: 10% 5% 10% 5%;
+}
+.viewpolllink {
+    color: black;
+    font-size:1.5em;
+}
+.postimage {
+    object-fit: cover;
+    height: 250px;
+    width: 250px;
+}

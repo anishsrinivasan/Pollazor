@@ -1,0 +1,166 @@
+*{
+   
+}
+
+.topcontainer{
+  padding:0; 
+overflow: hidden;
+}
+.zeropadding{
+    padding:0;
+    margin:0;
+}
+.maincontainer {
+    padding: 10% 8% 2% 8%;
+}
+.headerimagecontainer{
+    padding:0;
+}
+.headerimage {
+    height:400px;
+    width:100%;
+    object-fit: cover;
+}
+.userinfobox{
+    padding: 5%;
+    margin-top: -25%;
+    background-color: white;
+    box-shadow:0px 0px 20px 0px #919191;
+}
+.userprofileimage{
+    width:150px;
+    height:150px;
+}
+.userdisplayname{
+    font-weight:600;
+    font-size:1.5em;
+    padding:0;
+}
+.pollazorpoint{
+    font-weight:400;
+    font-size:1.2em;
+}
+.totalposts{
+    font-weight:400;
+    padding-left:5%;
+}
+.totalimpressions{
+    font-weight: 400;
+    padding-left:5%;
+}
+.userpostscontainer{
+    padding:0 5% 2% 5%;
+}
+.postlink{
+    color:black;
+}
+.postimage {
+    object-fit: cover;
+    padding-bottom: 100%;
+    background-size: cover !important;
+    background-position: center !important;
+}
+.posttitle{
+    font-weight:400;
+    height:2em;
+}
+.postinfo{
+    padding:2%;
+}
+
+  #editprofileimagepreview{
+   
+  }
+  .fileinputhide{
+      display:none
+  }
+  .imageoverlay {
+    position:relative;
+    width:150px;
+    height:150px;
+    border-radius: 50%!important;
+}
+.imageoverlay img {
+    width:100%;
+    vertical-align:top;
+    overflow: hidden;
+}
+.imageoverlay:after {
+    text-align: center;
+    margin:0 auto;
+    content:'';
+    color:#fff;
+    position:absolute;
+    width:100%; height:100%;
+    top:0; left:0;
+    background:rgba(0,0,0,0.6);
+    opacity:0;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    border-radius: 50%!important;
+}
+.imageoverlay:after {
+    opacity:1;
+}
+.textoverlayprofile{
+    /* top: 50%; */
+    left: 20%;
+    top: 45%;
+    position:  absolute;
+    color:  white;
+    /* right: 50%; */
+
+}
+
+.headerimageoverlay {
+    position:relative;
+    width:100%;
+    height: 100%;
+}
+.headerimageoverlay img {
+    width:100%;
+    vertical-align:top;
+    overflow: hidden;
+}
+.headerimageoverlay:after {
+    text-align: center;
+    margin:0 auto;
+    content:'';
+    color:#fff;
+    position:absolute;
+    width:100%; height:100%;
+    top:0; left:0;
+    background:rgba(0,0,0,0.6);
+    opacity:0;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+.headerimageoverlay:after {
+    opacity:1;
+}
+.textoverlayheader{
+    text-align: center;
+    left: 47%;
+    top: 30%;
+    position: absolute;
+    color: white;
+    font-size: 1.5em;
+}
+
+@media screen and (max-width: 768px)  {
+    .userinfobox{
+        margin: -30% 2% 0 2%;
+    
+    }
+    .headerimage {
+        height:200px;
+    }
+    .textoverlayheader{
+        left: 35%;
+        top: 35%;
+    
+    }
+    .userpostscontainer{
+        padding:0 10% 2% 10%;
+    }
+}

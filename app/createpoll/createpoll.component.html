@@ -1,0 +1,101 @@
+<div class="container-fluid">
+        <div class="createpollcontainer">
+          
+            <div class="row">
+                <div class="col-md-6 previewcontainer">
+                        <br>
+                    <strong><h5 class="text-center bold">Preview</h5></strong>
+                    <br><br>
+                    <h3 class="text-center"><strong>{{posttitle}}</strong></h3>
+                    <p class="text-center">{{postcontent}}</p>
+                    <br>
+                    <div class="postimagecontainer">
+                            <div id="previewimage" class="postimage"></div>
+                        </div>
+                        <hr>
+                    <strong><h4 class="text-center bold">Polls</h4></strong>
+                    <ol>
+                        <div *ngFor="let poll of polls | async">
+                            <li><strong>{{ poll.data.polltitle}}</strong>
+                                <br> {{poll.data.pollcontent}}
+                                <div *ngIf="poll.data.pollimage != null">
+                                        <br>
+                                        <br>
+                                <div  [ngStyle]="{'background': 'url(' + poll.data.pollimage + ') no-repeat'}"  class="pollimage"></div>
+                                </div>
+                                <br>
+                                <br>
+                                
+                            </li>
+                        </div>
+                    </ol>
+    
+                </div>
+               
+      
+                <div class="col-md-6 addpostcontainer">
+                    <div class="addpost  addpostpollscontainer ng-hide" ng-show="postAdded">
+                            <strong><h5 class="text-center bold">Enter New Poll</h5></strong>
+                            <br><br>
+                        <div class="md-form">
+                            <input type="text" [(ngModel)]="posttitle" name="posttitle" id="form6" class="form-control">
+                            <label class="active" for="form6"><strong>Title</strong>
+                            </label>
+                        </div>
+                        <div class="md-form">
+    
+                            <textarea type="text" [(ngModel)]="postcontent" name="postcontent" id="form7" class="md-textarea"></textarea>
+                            <br>
+                            <label class="active" for="form6">Description</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Post Image</label>
+                            <input type="file" class="form-control-file" id="file" type="file" #postimage (change)="uploadPostImage(postimage.files)" required>
+                        </div>
+                        <br>
+                        <div class="showSpinner text-center">
+                        Image Uploading...
+                        <app-loading-spinner></app-loading-spinner>
+                        </div>
+                        <button type="button" (click)="addPostBtn()" id="addpostbtn" class="btn btn-elegant">Next</button>
+    
+                    </div>
+                    <div class="addpoll  addpostpollscontainer ng-hide">
+                            <strong><h5 class="text-center bold">Enter New Poll Option - {{pollindex}}</h5></strong>
+                            <br><br>
+                        <form>
+                            <div class="md-form">
+                                <input type="text" [(ngModel)]="polltitle" name="polltitle" id="polltitle" class="form-control">
+                                <label class="active" for="form6"><strong>Poll Name</strong>
+                                </label>
+                            </div>
+                            <div class="md-form">
+                                <textarea type="text" [(ngModel)]="pollcontent" name="pollcontent" id="pollcontent" class="md-textarea"></textarea>
+                               
+                                <br>
+                                <label class="active" for="form7">Poll Description</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Poll Image</label>
+                                <input type="file" class="form-control-file" id="pollfile" #pollimage (change)="uploadPollImage(pollimage.files)">
+                            </div>
+    
+                            <div class="showSpinner text-center">
+                                    Image Uploading...
+                                    <app-loading-spinner></app-loading-spinner>
+                                    </div>
+                            <br>
+                            <div class="d-flex justify-content-between">
+                                <div>
+            
+                                    <button type="button" id="addpollbtn" (click)="addPollBtn()" class="btn btn-elegant">Add Poll</button>
+                                </div>
+                                <button type="button" *ngIf="pollindex > 2" (click)="submitPolls()" class="btn btn-elegant " id="submitpollsbtn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>

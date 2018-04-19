@@ -1,0 +1,276 @@
+<div class="col-md-12 headercontainer">
+  <div class="row d-flex justify-content-center">
+    <div class=" leaderboardcontainer ">
+      <h1 class="headingtext">Ask Questions</h1> 
+      <h1 class="headingtext">Vote Answers</h1>
+      <br>
+      <br>
+      <h4 class="recentcontributersheading">Some of Our Recent Contributers</h4>
+      <div class="row">
+      <div *ngFor="let leaderboarditem of leaderboard | async ; index as i" class="col-xs-3">
+          <a class="viewpolllink" routerLink="/{{leaderboarditem.uid}}" routerLinkActive="active">
+        <div class=" leadeboarditem text-center">
+          
+         
+          <img [src]="leaderboarditem.photoURL" class="rounded-circle leaderboardimage">
+          <p class="leaderboarditemname">{{leaderboarditem.displayName}}</p>
+        </div></a>
+      </div></div>
+    </div>
+    <div class=" signupcontainer">
+        
+      
+      <div class="row ">
+        <div  class="col-md-12 loginbox">
+            <div *ngIf="auth.user | async; then authenticated else guest">
+                <!-- template will replace this div -->
+            </div>
+            <ng-template #guest>
+            <div class="text-center ">
+                <br>
+            <div class="d-flex justify-content-center sociallogincontainer">
+            <button class="btn btn-primary" (click)="auth.facebookLogin()">
+                    <i class="fa fa-facebook"></i>  Facebook
+                </button> 
+                <button class="btn btn-danger" (click)="auth.googleLogin()">
+                        <i class="fa fa-google"></i>  Google
+                    </button> 
+                        
+                    </div>
+                
+                </div>
+                <hr>
+<form  class=" ">
+        <div class="md-form">
+            <input type="text" [(ngModel)]="email" name="email" placeholder="Email" >
+            
+        </div>
+    
+        <div class="md-form">
+            <input type="password" [(ngModel)]="password" name="password" placeholder="Password">
+          
+        </div>
+        <div class="text-center">
+            <button class="btn btn-elegant" id="loginbtn" (click)="signin()">Login</button>
+        </div>
+    </form>
+  <hr>
+  <p class="text-center">Don't Have An Account? <a routerLink="/userprofile">Sign Up</a></p></ng-template>
+    <ng-template #authenticated>
+        <div  *ngIf="auth.user | async as user">
+            <div class="text-center">
+                <br>
+                <h3>Hello, {{ user.displayName }}</h3>
+                <br>
+                <a routerLink="/createpoll"><button class="btn btn-elegant">Create a New Poll</button></a>
+                <a routerLink="/{{user.uid}}"><button class="btn btn-elegant">View Profile</button></a>
+            </div></div>
+    </ng-template>
+   </div>
+   
+   
+    
+    </div>
+  
+        
+     
+  
+  </div>
+  </div>
+</div>
+
+<div class="">
+<div class="sliderheadermobile col-md-12">
+  <div *ngFor="let trendingpost of trendingposts | async;" class="d-block w-100">
+        <a class="slidepolllink" routerLink="/viewpoll/{{trendingpost.postid}}" routerLinkActive="active">
+          <div  class="mainpostbox d-flex" >
+    <div class="col-md-6 mainimagecontainer">
+      <div *ngIf="trendingpost.postimage != null">
+      <div  [ngStyle]="{'background': 'url(' + trendingpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+    </div></div>
+      
+    <div class="col-md-6 mobileandmaincontainer">
+        <div class=" mobilemainimagecontainer"> 
+            <div *ngIf="trendingpost.postimage != null">
+            <div  [ngStyle]="{'background': 'url(' + trendingpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+          </div>
+          </div>
+          <div class="maincontent">
+      <h1 class="mainposttitle">{{trendingpost.title}}</h1>
+      <br>
+      <ol>
+      <div *ngFor="let trendingpoll of trendingpost.topPolls ; index as i">
+        
+          <p class="mainpolltitle">{{i+1}}. {{trendingpoll.polltitle}}</p>
+          <p class="mainpollvotes">{{trendingpoll.votes}} Votes</p>
+       
+      </div>
+    </ol>
+    </div></div>
+  </div>
+</a>
+</div>
+<div *ngFor="let recentpost of recentposts | async" class="d-block w-100">
+    <a class="slidepolllink" routerLink="/viewpoll/{{recentpost.postid}}" routerLinkActive="active">
+      <div  class="mainpostbox d-flex" >
+<div class="col-md-6 mainimagecontainer" >
+    <div *ngIf="recentpost.postimage != null">
+  <div  [ngStyle]="{'background': 'url(' + recentpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+</div>  
+</div>
+  
+<div class="col-md-6 mobileandmaincontainer">
+    <div class=" mobilemainimagecontainer"> 
+        <div *ngIf="recentpost.postimage != null">
+        <div  [ngStyle]="{'background': 'url(' + recentpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+      </div>
+      </div>
+      <div class="maincontent">
+  <h1 class="mainposttitle">{{recentpost.title}}</h1>
+  <br>
+  <ol>
+  <div *ngFor="let recentpoll of recentpost.topPolls; index as i">
+
+      <p class="mainpolltitle">{{i+1}}. {{recentpoll.polltitle}}</p>
+      <p class="mainpollvotes">{{recentpoll.votes}} Votes</p>
+  </div>
+</ol>
+</div></div>
+</div>
+</a>
+</div></div>
+
+<div class="sliderheader col-md-12">
+    <!--Carousel Wrapper-->
+    <mdb-carousel  #carouselRef class="carousel slide " [animation]="'slide'">
+        <!--First slide-->
+  
+        <mdb-slide>
+            <div *ngFor="let trendingpost of trendingposts | async" class="d-block w-100">
+                <a class="slidepolllink" routerLink="/viewpoll/{{trendingpost.postid}}" routerLinkActive="active">
+                  <div  class="mainpostbox d-flex" >
+            <div class="col-md-6 mainimagecontainer">
+                <div *ngIf="trendingpost.postimage != null">
+              <div  [ngStyle]="{'background': 'url(' + trendingpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+            </div>  
+            </div>
+              
+            <div class="col-md-6 mobileandmaincontainer">
+                <div class=" mobilemainimagecontainer"> 
+                    <div *ngIf="trendingpost.postimage != null">
+                    <div  [ngStyle]="{'background': 'url(' + trendingpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+                  </div>
+                  </div>
+                  <div class="maincontent">
+              <h1 class="mainposttitle">{{trendingpost.title}}</h1>
+              <br>
+              <ol>
+              <div *ngFor="let trendingpoll of trendingpost.topPolls ; index as i">
+
+                  <p class="mainpolltitle">{{i+1}}. {{trendingpoll.polltitle}}</p>
+                  <p class="mainpollvotes">{{trendingpoll.votes}} Votes</p>
+               
+              </div>
+            </ol>
+            </div></div>
+          </div>
+        </a>
+      </div>
+        </mdb-slide>
+      
+        <!--Second slide-->
+        <mdb-slide>
+          <div *ngFor="let recentpost of recentposts | async" class="d-block w-100">
+            <a class="slidepolllink" routerLink="/viewpoll/{{recentpost.postid}}" routerLinkActive="active">
+              <div  class="mainpostbox d-flex" >
+        <div class="col-md-6 mainimagecontainer" >
+            <div *ngIf="recentpost.postimage!= null">
+          <div  [ngStyle]="{'background': 'url(' + recentpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+        </div>  
+        </div>
+          
+        <div class="col-md-6 mobileandmaincontainer">
+            <div class=" mobilemainimagecontainer"> 
+                <div *ngIf="recentpost.postimage!= null">
+                <div  [ngStyle]="{'background': 'url(' + recentpost.postimage + ') no-repeat'}"  class="mainimage img-fluid"></div>
+              </div>
+              </div>
+              <div class="maincontent">
+          <h1 class="mainposttitle">{{recentpost.title}}</h1>
+          <br>
+          <ol>
+          <div *ngFor="let recentpoll of recentpost.topPolls ; index as i">
+
+              <p class="mainpolltitle">{{i+1}}. {{recentpoll.polltitle}}</p>
+              <p class="mainpollvotes">{{recentpoll.votes}} Votes</p>
+            
+          </div>
+        </ol>
+        </div></div>
+        </div>
+        </a>
+        </div>
+      </mdb-slide>
+        <!--/Third slide-->
+      </mdb-carousel>
+      <!--/.Carousel Wrapper-->
+      </div> </div>
+<div class="container-fluid maincontainer">
+    <div class="mainheropoll"> 
+      <div class="menucategory">
+      <a (click)="carouselRef.selectSlide(0)"><p class="hvr-underline-from-left headerslidermenu">Trending</p></a> <a (click)="carouselRef.selectSlide(1)"><p class="hvr-underline-from-left headerslidermenu">Recent</p></a>
+    </div>
+    </div>
+  </div>  
+  <div class="container-fluid postscontainer">
+       
+      <div class="posts">
+        <div class="filterbox">
+          Sort By <select class="custom-select" [(ngModel)]="filter" (change)="filterposts(filter)">
+              <option value="recent">Recent</option>
+              <option value="old">Old</option>
+            </select>
+          </div>
+          <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+      <div class="row">
+        <div *ngFor="let post of posts  | async " class="col-md-4">  
+          <div   >
+          <div class="postbox ">
+              <a class="viewpolllink" routerLink="/viewpoll/{{post.postid}}" routerLinkActive="active">
+          <div class="postimagecontainer"> 
+             <div  [ngStyle]="{'background': 'url(' + post.postimage + ') no-repeat'}"  class="postimage"></div>
+          </div></a>
+          <div class="postcontent">
+              <a class="viewpolllink" routerLink="/viewpoll/{{post.postid}}" routerLinkActive="active">
+              <h1 class="posttitle">{{post.title}}</h1></a>
+              <hr>
+              <div class="postinfo">
+                  <a class="viewpolllink" routerLink="/{{post.uid}}" routerLinkActive="active">
+              <img [src]="post.authorimage" class="authorimage rounded-circle">
+                <p class="authorname">{{post.authorname}}</p>
+                </a>
+              <p class="postdate">{{post.postdate}}</p>
+            </div>
+            <a class="viewpolllink" routerLink="/viewpoll/{{post.postid}}" routerLinkActive="active">
+              <br>
+              <ol>
+             
+             <div *ngFor="let poll of post.topPolls ; index as i">
+                <div >
+
+                  <p class="polltitle">{{i+1}}. {{ poll.polltitle}}</p>
+                  <div class="votebox d-flex justify-content-start">
+                  <p class="pollvotes">{{poll.votes}} Votes</p>    </div>
+                  
+              
+            
+          </div></div>
+        </ol></a>
+        </div></div>
+      
+        </div></div></div>
+  </div>
+  </div>
+ 
+
+ 

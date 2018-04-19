@@ -1,0 +1,62 @@
+.createpollcontainer{
+    padding: 5% 5% 0 5%;
+}
+.createpoll {
+    background-color: white;
+}
+.previewcontainer{
+    height: 100vh;
+    border-right:0.1px;
+    border-right-color: #e9ebee;
+    border-right-style: solid;
+   
+}
+.addpostcontainer{
+    top:0;
+    right:0;
+    position: fixed;
+    padding: 8% 2% 0 2%;
+    
+}
+
+
+.addpostpollscontainer {
+
+}
+.postcontainer{
+    padding: 0 0 10% 10%;
+}
+
+.pollimage {
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover!important;
+    background-position: center!important;
+}
+.postimagecontainer {
+
+}
+.postimage {
+    padding-bottom: 100%;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.mdform {
+    padding-bottom: 10px;
+}
+@media screen and (max-width: 768px)  {
+.addpostcontainermobile{
+   
+}
+.addpostcontainer{
+    position: relative;
+    top:unset;
+    right:unset;
+}
+.previewcontainer{
+    border-right: none;
+    height:100%;
+}
+
+}

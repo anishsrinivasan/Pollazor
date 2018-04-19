@@ -1,0 +1,110 @@
+<div class="container-fluid maincontainer">
+    <div class="row">
+        <div class="col-md-8 ">
+            <div class="maincontent">
+                <div *ngFor="let post of posts | async">
+                    <h1 class="mainposttitle">{{post.title}}</h1>
+                    <div class="postinfo">
+                        <a routerLink="/{{post.uid}}" class="authorlink" routerLinkActive="active">
+                            <img [src]="post.authorimage" class="authorimage rounded-circle">
+                            <p class="authorname">{{post.authorname}}</p>
+                            
+                        </a>
+                        <p class="postdate">{{post.postdate}}</p>
+                    </div>
+                    <hr>
+                    <br>
+                    <p class="mainpostcontent">{{post.content}}</p>
+                    <div *ngIf="post.postimage != null && post.postimage != ''">
+                    <div class="postimage" [ngStyle]="{'background': 'url(' + post.postimage + ') no-repeat'}"></div> 
+                </div>
+                    <br>
+                    <div class="sharecontainer mobileonly">
+                        <share-buttons [theme]="'material-dark'"
+                        [include]="['facebook','twitter','pinterest','google']"
+                        [show]="14"
+                       ></share-buttons></div>
+                       <br>
+         
+                   
+                 
+                </div>
+
+
+
+                <br>
+                <br>
+
+                <ol>
+                    <div *ngFor="let poll of polls | async ; index as i trackBy: trackFbObjects">
+                        <div>
+
+                            <div class="pollbox">
+                            <li class="mainpolltitle">
+                                <p>{{ poll.data.polltitle}}</p>
+                            </li>
+                            <div class="votebox d-flex flex-row align-items-center">
+                                <p class="mainpollvotes">{{poll.data.votes}} Votes</p>
+                                <a *ngIf="!checkVote(poll.id)" (click)="addVote(poll.data.postid,poll.id)" class="btn-floating btn-sm blue-gradient  "><svg-icon src="./assets/Pollazorpoint.svg" style="fill:black;width:30px;"></svg-icon></a>
+        
+                            </div>
+                            <p class="mainpollcontent">{{poll.data.pollcontent}}</p>
+                            </div>
+                            <br>
+                            <br>
+                            <div *ngIf="poll.data.pollimage != null">
+                            <div  [ngStyle]="{'background': 'url(' + poll.data.pollimage + ') no-repeat'}"  class="mainpollimage"></div>
+                        </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </ol>
+
+            </div>
+          
+        </div>
+        <div class="col-md-4 sidebarcontainer " >
+            <br>
+            <div class="sharecontainer ">
+                <share-buttons [theme]="'material-dark'"
+                [include]="['facebook','twitter','pinterest','google']"
+                [show]="14"
+               ></share-buttons></div>
+            <br>
+            <div class="likebutton">
+                    <div class="fb-like" data-href="https://pollazor.com/viewpolls/{{this.id}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false" data-width="500"></div>
+                </div>
+            <br>
+            <div id="fbcomments" class="facebookcomments">
+                <h4>Comments</h4>
+                <br>
+                <div id="fb-root"></div>
+                <div class="fb-comments" data-href="https://pollazor.com/viewpolls/{{this.id}}" data-numposts="20" width="100%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8  ">
+<div class="maincontent ">
+    <div class="recentpostscontainer">
+        <hr>
+        <h5 class="recentcontainertitle">Recent Posts</h5>
+        <div class="row ">
+            <div *ngFor="let recentpost of recentposts | async" >
+                <div *ngIf="id != recentpost.postid" class="col-md-12">
+                    <a class="recentpolllink" href="https://pollazor.com/viewpoll/{{recentpost.postid}}" >
+
+                        <img class="recentimage" [src]="recentpost.postimage">
+                        <div class="recenttitle">{{recentpost.title}}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

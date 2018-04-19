@@ -1,0 +1,84 @@
+<div *ngFor="let user of users | async" class="topcontainer container-fluid ">
+
+  <div class="row">
+    
+      <div class="col-md-12 headerimagecontainer" >
+         <div *ngIf="editprofileval == false">
+            <div *ngIf="user.headerURL != null">
+          <img class="headerimage" [src]="user.headerURL">
+        </div>
+        <div *ngIf="user.headerURL == null">
+            <img class="headerimage" src="/assets/Pollazor_Main_ogimage.jpg">
+          </div>
+      </div>
+          <div *ngIf="editprofileval == true ">
+              <div style="position:relative" (click)="editprofileheader()">
+                  <div class="headerimageoverlay">  
+              <img class="headerimage" id="previewheaderimage" [src]="user.headerURL">
+               
+              </div><p id="textoverlayheader" class="textoverlayheader">Upload Image</p>
+              </div>
+          </div>
+        </div>
+    <div class="col-md-12 maincontainer d-flex justify-content-center">
+      
+      <div class="col-md-6 userinfobox align-self-center text-center">
+        
+        <div *ngIf="editprofileval == false">
+          <img class="userprofileimage rounded-circle" [src]="user.photoURL">
+ 
+        <br>
+        <p class="userdisplayname">{{user.displayName}}</p>
+        <p class="userabout">{{user.about}}</p>
+        <a *ngIf="checkUserVote()" (click)="addUserVote(user.uid)" class="btn-floating btn-sm blue-gradient "><svg-icon src="./assets/Pollazorpoint.svg" style="fill:black;width:30px;"></svg-icon></a>
+        <p class="pollazorpoint">{{uservotecount}} <br> Pollazor</p>
+        <div class="d-flex justify-content-between">
+          <p class="totalposts">{{userpostscount}} <br> Posts</p>
+          <p class="totalimpressions">{{postsuservotecount}}<br> Impressions</p>
+        </div>
+        <div *ngIf="currentuserid == user.uid" >
+        <button class="btn btn-elegant" (click)="editprofiletoggle()">Edit Profile</button>
+      </div>
+        </div>
+        <div *ngIf="editprofileval == true" class="editprofilebox d-flex editprofilebox align-items-center flex-column">
+          <div style="position:relative" (click)="editproimage()"> 
+          <div class="imageoverlay rounded-circle"  > 
+            <img id="previewprofileimage" class="userprofileimage rounded-circle" [src]="user.photoURL">
+          </div>
+          <p class="textoverlayprofile" id="textoverlayprofile">Upload Image</p> 
+        </div> 
+            <input id="editprofileimage" class="form-control text-center  " type="file" #editprofileimage (change)="profileImageChange(editprofileimage.files)" >
+            <input id="editprofileheader" class="form-control text-center fileinputhide " type="file" #editheaderimage (change)="headerImageChange(editheaderimage.files)" >
+            <p class="zeropadding">Name</p>
+            <input class="form-control text-center  " type="text" name="displayName" #editprofilename [(ngModel)]="displayName" [value]="user.displayName"  id="example-text-input">
+            <p class="zeropadding">About</p>
+            <input class="form-control text-center  " type="text" name="about" #editabout [(ngModel)]="about" [value]="user.about"  id="example-text-input">
+            
+            <button class="btn btn-elegant" id="#updatebtn" (click)="editprofiletoggle();updateUserProfile(editprofilename.value,editabout.value)">Save Changes</button>
+  
+          </div>
+      </div>
+      <br>
+    </div>
+  
+
+    
+    <div class="col-md-12 userpostscontainer" >
+      <br>
+      <h1 class="text-center">Polls</h1>
+      <br>
+      <div class="row justify-content-center">
+   
+      <div class="col-md-3  " *ngFor="let post of posts | async">
+          <a class="postlink" routerLink="/viewpoll/{{post.id}}" routerLinkActive="active">
+            <div class="postimage" [ngStyle]="{'background': 'url(' + post.data.postimage + ') no-repeat'}"></div> 
+          <div class="postinfo">
+          <p class="posttitle">{{post.data.title}}</p>
+        </div>
+          </a>
+         <p *ngIf="currentuserid === profileId" class="text-center"> <button class="btn btn-elegant " id="#deletpost" (click)="deletePost(post.id)">Delete Post</button></p>
+      </div>
+    </div></div>
+  </div>
+  
+</div>

@@ -1,0 +1,27 @@
+<header>
+    <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark bg-black scrolling-navbar" [containerInside]="false">
+      <logo>
+          <a class="logo navbar-brand text-center"  routerLink="/" routerLinkActive="active"> <img src="/assets/pollazor_logo.png" height="40" alt=""></a>
+      </logo>
+      <links>
+          <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item waves-light" mdbRippleRadius>
+                  <a class="nav-link" data-toggle="collapse" routerLink="/" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link" data-toggle="collapse" routerLink="/createpoll" routerLinkActive="active">Create Poll</a>
+            </li>
+            
+             <div *ngIf="userId ; then authenticated else notlogged"></div>
+                  <ng-template #authenticated>
+                    <li *ngIf="auth.user | async as user" class="nav-item waves-light" mdbRippleRadius><a class="nav-link" data-toggle="collapse" routerLink="/userprofile" routerLinkActive="active">Hi, {{user.displayName}}</a> </li>
+                            <li class="nav-item waves-light" mdbRippleRadius (click)="signOut()"><a class="nav-link" data-toggle="collapse"  >Logout</a> </li></ng-template>
+                            <ng-template #notlogged> <li class="nav-item waves-light" mdbRippleRadius><a class="nav-link" data-toggle="collapse"  routerLink="/userprofile" routerLinkActive="active" >Login</a></li></ng-template>
+                            <li class="nav-item waves-light" mdbRippleRadius><a class="nav-link" data-toggle="collapse"  ></a></li>
+                            <li class="nav-item waves-light" mdbRippleRadius><a class="nav-link" data-toggle="collapse"  ></a></li>
+                        </ul>
+      </links>
+    </mdb-navbar>
+    </header>
